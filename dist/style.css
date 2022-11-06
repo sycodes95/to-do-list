@@ -81,3 +81,21 @@ body{
 .content{
     background-color: chartreuse;
 }
+
+.projectHeader{
+    background-color: red;
+}
+
+.addTaskContainer{
+    width: 400px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.addTaskTitle {
+    height: 20px;
+}
+
+.addTaskDescription {
+    height: 100px;
+}
