@@ -48,7 +48,9 @@ class Task {
 })();
 
 function taskButton (){
+
     const taskButton = document.getElementById('taskButton');
+    taskButton.style.visibility = 'visible'
     const taskFormContainer = document.querySelector('.taskFormContainer');
     taskButton.addEventListener('click', ()=> {
         taskFormContainer.style.visibility = 'visible'
@@ -60,35 +62,12 @@ function taskButton (){
 function submitTask (i){
     const submitTask = document.getElementById('submitTask');
 
-    const taskContainer = document.querySelector('.taskContainer')
-    taskContainer.innerHTML = '';
+    
+    
 
-    const taskTitle = document.getElementById('taskTitle');
-    const taskDescription = document.getElementById('taskDescription');
-    const taskPriority = document.getElementById('taskPriority');
-
-    submitTask.addEventListener('click', ()=>{
-
-        
+    
 
 
-        let title = document.getElementById('taskTitle').value;
-        let description = document.getElementById('taskDescription').value;
-        let priority = document.getElementById('taskPriority').value
-
-        let taskObj = new Task (title, description, priority)
-        myProjects.at(i).tasks.push(taskObj);
-        
-
-        
-
-        
-
-        
-        
-        console.log(myProjects)
-
-    })
 }
         
 function projectClick (){
@@ -101,7 +80,8 @@ function projectClick (){
         project.addEventListener('click',()=>{
             taskContainer.innerHTML = '';
             contentHeader.textContent = `${myProjects[i].title}`;
-            
+            displayTasks(i)
+            createTask(i)
             
 
             
@@ -111,9 +91,10 @@ function projectClick (){
             
         })
 
-        displayTasks(i)
-        submitTask(i)
+        
+        
         taskButton()
+        
         
     })
 }
@@ -125,20 +106,116 @@ function displayTasks (i){
     taskContainer.innerHTML = '';
     myProjects.at(i).tasks.forEach((e) =>{
         let task = document.createElement('div');
-        task.textContent = e.title;
+        task.classList.add('task')
+        
         taskContainer.appendChild(task)
+
+        let taskTitle = document.createElement('div');
+        taskTitle.classList.add('taskTitle');
+        taskTitle.textContent = e.title;
+        task.appendChild(taskTitle);
+
+        let taskDescription = document.createElement('div');
+        taskDescription.classList.add('taskDescription')
+        taskDescription.textContent = e.description;
+        task.appendChild(taskDescription);
 
 
     })
 
 }
 
+function createTask (i){
+
+    const taskFormContainer = document.querySelector('.taskFormContainer');
+    taskFormContainer.innerHTML = '';
+
+    const taskContainer = document.querySelector('.taskContainer')
+
+    
+
+    
+
+    const taskTitle = document.createElement('input');
+    taskTitle.setAttribute('id', 'taskTitle')
+    taskTitle.placeholder = 'title';
+    taskFormContainer.appendChild(taskTitle);
+
+    const taskDescription = document.createElement('input');
+    taskDescription.setAttribute('id', 'taskDescription');
+    taskDescription.placeholder = 'description'
+    taskFormContainer.appendChild(taskDescription);
+
+    const taskPriority = document.createElement('select');
+    taskPriority.setAttribute('id', 'taskPriority');
+    taskFormContainer.appendChild(taskPriority);
+
+    const highPriority = document.createElement('option');
+    highPriority.value = 'High Priority'
+    highPriority.textContent = 'High Priority'
+    taskPriority.appendChild(highPriority);
+
+    const lowPriority = document.createElement('option');
+    lowPriority.value = 'Low Priority'
+    lowPriority.textContent = 'Low Priority'
+    taskPriority.appendChild(lowPriority);
+
+    const submitTask = document.createElement('button');
+    submitTask.setAttribute('id', 'submitTask');
+    submitTask.textContent = 'Submit'
+    taskFormContainer.appendChild(submitTask);
+
+    const cancelTask = document.createElement('button');
+    cancelTask.setAttribute('id', 'cancelTask');
+    cancelTask.textContent = 'Cancel'
+    taskFormContainer.appendChild(cancelTask);
+
+    submitTask.addEventListener('click', ()=>{
 
         
+
+        let title = document.getElementById('taskTitle').value;
+        let description = document.getElementById('taskDescription').value;
+        let priority = document.getElementById('taskPriority').value
+
+        let taskObj = new Task (title, description, priority)
+        myProjects.at(i).tasks.push(taskObj);
         
+        console.log(myProjects)
+
+        displayTasks(i)
         
+
+    })
+
         
+
+}
+
+    
+
         
+
+        
+
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
 
 
         
