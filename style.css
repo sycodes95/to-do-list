@@ -90,5 +90,9 @@ body{
     visibility: hidden;
 }
 
+#taskButton {
+    visibility: hidden;
+}
+
 
 
