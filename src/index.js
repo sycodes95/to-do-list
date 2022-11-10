@@ -1,5 +1,6 @@
 let myProjects = [];
 
+
 class Project {
     constructor(title, index, tasks){
         this.title = title
@@ -44,31 +45,35 @@ class Task {
         console.log(myProjects)
 
         projectClick()
+
+        const projectFormContainer = document.querySelector('.projectFormContainer');
+        projectFormContainer.style.visibility = 'hidden';
+
+
+
     });
 })();
 
 function taskButton (){
 
+    
+
     const taskButton = document.getElementById('taskButton');
     taskButton.style.visibility = 'visible'
     const taskFormContainer = document.querySelector('.taskFormContainer');
+    
     taskButton.addEventListener('click', ()=> {
         taskFormContainer.style.visibility = 'visible'
+
+        document.getElementById('taskTitle').value = '';
+        document.getElementById('taskDescription').value = '';
+        document.getElementById('taskPriority').value = '';
+        document.getElementById('taskDueDate').value = '';
 
     })
 
 }
 
-function submitTask (i){
-    const submitTask = document.getElementById('submitTask');
-
-    
-    
-
-    
-
-
-}
         
 function projectClick (){
     const projectContainer = document.querySelector('.projectContainer');
@@ -82,6 +87,7 @@ function projectClick (){
             contentHeader.textContent = `${myProjects[i].title}`;
             displayTasks(i)
             createTask(i)
+            taskButton()
             
 
             
@@ -93,7 +99,7 @@ function projectClick (){
 
         
         
-        taskButton()
+        
         
         
     })
@@ -104,7 +110,8 @@ function displayTasks (i){
     
     const taskContainer = document.querySelector('.taskContainer');
     taskContainer.innerHTML = '';
-    myProjects.at(i).tasks.forEach((e) =>{
+    
+    myProjects.at(i).tasks.forEach((e, i) =>{
         let task = document.createElement('div');
         task.classList.add('task')
         
@@ -120,10 +127,44 @@ function displayTasks (i){
         taskDescription.textContent = e.description;
         task.appendChild(taskDescription);
 
+        let taskPriority = document.createElement('div');
+        taskPriority.classList.add('taskPriority')
+        taskPriority.textContent = e.priority;
+        task.appendChild(taskPriority);
+
+        let taskDueDate = document.createElement('div')
+        taskDueDate.classList.add('showDueDate');
+        taskDueDate.textContent = e.dueDate;
+        task.appendChild(taskDueDate);
+
+        let showDetailsAndEditButton = document.createElement('button');
+        showDetailsAndEditButton.classList.add('showDetailsAndEdit');
+        showDetailsAndEditButton.textContent = 'Details / Edit';
+        task.appendChild(showDetailsAndEditButton);
+
+        let taskDelete = document.createElement('button')
+        taskDelete.classList.add('taskDelete');
+        taskDelete.textContent = 'Delete';
+        task.appendChild(taskDelete);
+        taskDelete.addEventListener('click', ()=>{
+            
+            e = 0;
+            task.remove();
+            console.log(i)
+            console.log(e);
+            
+            
+
+        })
+
+
+
 
     })
 
 }
+
+
 
 function createTask (i){
 
@@ -160,6 +201,12 @@ function createTask (i){
     lowPriority.textContent = 'Low Priority'
     taskPriority.appendChild(lowPriority);
 
+    const taskDueDate = document.createElement('input');
+    taskDueDate.setAttribute('id', 'taskDueDate')
+    taskDueDate.type = 'Date';
+    taskDueDate.textContent = 'Due Date';
+    taskFormContainer.appendChild(taskDueDate);
+
     const submitTask = document.createElement('button');
     submitTask.setAttribute('id', 'submitTask');
     submitTask.textContent = 'Submit'
@@ -170,20 +217,35 @@ function createTask (i){
     cancelTask.textContent = 'Cancel'
     taskFormContainer.appendChild(cancelTask);
 
+    
+
     submitTask.addEventListener('click', ()=>{
+        
 
         
 
         let title = document.getElementById('taskTitle').value;
         let description = document.getElementById('taskDescription').value;
-        let priority = document.getElementById('taskPriority').value
+        let priority = document.getElementById('taskPriority').value;
+        let dueDate = document.getElementById('taskDueDate').value;
 
-        let taskObj = new Task (title, description, priority)
+        
+
+        let taskObj = new Task (title, description, priority, dueDate)
         myProjects.at(i).tasks.push(taskObj);
+
+        
         
         console.log(myProjects)
+        console.log(priority)
 
         displayTasks(i)
+
+        
+
+        let taskFormContainer = document.querySelector('.taskFormContainer');
+        taskFormContainer.style.visibility = 'hidden';
+        
         
 
     })

@@ -94,5 +94,34 @@ body{
     visibility: hidden;
 }
 
+.task {
+    border: solid 1px black;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-template-rows: repeat(2, 20px);
+}
+
+.taskTitle {
+    
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    background-color: cornflowerblue;
+    font-size: 16px;
+}
+
+.taskDescription{
+    background-color: coral;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    font-size: 12px;
+}
+
+.taskPriority {
+    background-color: cadetblue;
+    grid-column: 2/3;
+    grid-row: 1/3;
+}
+
 
 
