@@ -186,8 +186,10 @@ function displayTasks (i){
 
             if (e.priority == 'High Priority'){
                 task.style.borderColor = 'red'
+                highPriority.selected = true;
             } else if (e.priority == 'Low Priority'){
                 task.style.borderColor = 'green'
+                lowPriority.selected = true;
             } else {
                 task.style.borderColor = 'black'
             }
@@ -201,8 +203,10 @@ function displayTasks (i){
 
         if (e.priority == 'High Priority'){
             task.style.borderColor = 'red'
+            highPriority.selected = true;
         } else if (e.priority == 'Low Priority'){
             task.style.borderColor = 'green'
+            lowPriority.selected = true;
         } else {
             task.style.borderColor = 'black'
         }
@@ -399,8 +403,10 @@ document.querySelector('.allTasks').addEventListener('click', ()=>{
     
                 if (e.priority == 'High Priority'){
                     task.style.borderColor = 'red'
+                    highPriority.selected = true;
                 } else if (e.priority == 'Low Priority'){
                     task.style.borderColor = 'green'
+                    lowPriority.selected = true;
                 } else {
                     task.style.borderColor = 'black'
                 }
@@ -414,8 +420,10 @@ document.querySelector('.allTasks').addEventListener('click', ()=>{
     
             if (e.priority == 'High Priority'){
                 task.style.borderColor = 'red'
+                highPriority.selected = true;
             } else if (e.priority == 'Low Priority'){
                 task.style.borderColor = 'green'
+                lowPriority.selected = true;
             } else {
                 task.style.borderColor = 'black'
             }
