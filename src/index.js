@@ -110,8 +110,10 @@ function displayTasks (i){
     
     const taskContainer = document.querySelector('.taskContainer');
     taskContainer.innerHTML = '';
+
+    let taskArray = myProjects.at(i).tasks;
     
-    myProjects.at(i).tasks.forEach((e, i) =>{
+    taskArray.forEach((e, i) =>{
         let task = document.createElement('div');
         task.classList.add('task')
         
@@ -148,10 +150,11 @@ function displayTasks (i){
         task.appendChild(taskDelete);
         taskDelete.addEventListener('click', ()=>{
             
-            e = 0;
+            taskArray.splice(i , 1);
             task.remove();
             console.log(i)
             console.log(e);
+            console.log(taskArray)
             
             
 
