@@ -19,6 +19,20 @@ class Task {
     }
 }
 
+(function createDefaultProject (){ 
+    const projectContainer = document.querySelector('.projectContainer');
+    const addProject = document.createElement('div');
+    addProject.textContent = 'Default'
+    projectContainer.appendChild(addProject);
+    let title = addProject.textContent;
+    let defaultProject = new Project(title);
+    myProjects.push(defaultProject);
+
+    projectClick()
+
+    console.log(myProjects)
+})();
+
 (function projectButton (){
     const projectFormContainer = document.querySelector('.projectFormContainer');
     const projectButton = document.querySelector('.projectButton');
@@ -116,33 +130,87 @@ function displayTasks (i){
     taskArray.forEach((e, i) =>{
         let task = document.createElement('div');
         task.classList.add('task')
+
+        
+        
         
         taskContainer.appendChild(task)
 
-        let taskTitle = document.createElement('div');
+        let taskTitle = document.createElement('input');
         taskTitle.classList.add('taskTitle');
-        taskTitle.textContent = e.title;
+        taskTitle.value = e.title;
         task.appendChild(taskTitle);
 
-        let taskDescription = document.createElement('div');
+        let taskDescription = document.createElement('input');
         taskDescription.classList.add('taskDescription')
-        taskDescription.textContent = e.description;
+        taskDescription.value = e.description;
         task.appendChild(taskDescription);
 
-        let taskPriority = document.createElement('div');
+        let taskPriority = document.createElement('select');
         taskPriority.classList.add('taskPriority')
         taskPriority.textContent = e.priority;
         task.appendChild(taskPriority);
 
-        let taskDueDate = document.createElement('div')
+        let lowPriority = document.createElement('option');
+        lowPriority.classList.add('lowPriority');
+        lowPriority.value = 'Low Priority';
+        lowPriority.textContent = 'Low Priority'
+        taskPriority.appendChild(lowPriority);
+
+        
+
+        let highPriority = document.createElement('option');
+        highPriority.classList.add('highPriority');
+        highPriority.value = 'High Priority';
+        highPriority.textContent = 'High Priority'
+        taskPriority.appendChild(highPriority);
+
+        
+
+        let taskDueDate = document.createElement('input')
         taskDueDate.classList.add('showDueDate');
-        taskDueDate.textContent = e.dueDate;
+        taskDueDate.type = 'Date';
+        taskDueDate.value = e.dueDate;
         task.appendChild(taskDueDate);
 
-        let showDetailsAndEditButton = document.createElement('button');
-        showDetailsAndEditButton.classList.add('showDetailsAndEdit');
-        showDetailsAndEditButton.textContent = 'Details / Edit';
-        task.appendChild(showDetailsAndEditButton);
+        let taskEditAndSubmit = document.createElement('button');
+        taskEditAndSubmit.classList.add('taskEditAndSubmit');
+        taskEditAndSubmit.textContent = 'Submit';
+        task.appendChild(taskEditAndSubmit);
+
+        taskEditAndSubmit.addEventListener('click', ()=>{
+            e.title = taskTitle.value;
+            e.description = taskDescription.value;
+            e.priority = taskPriority.value;
+            e.dueDate = taskDueDate.value;
+
+            if (e.priority == 'High Priority'){
+                task.style.borderColor = 'red'
+            } else if (e.priority == 'Low Priority'){
+                task.style.borderColor = 'green'
+            } else {
+                task.style.borderColor = 'black'
+            }
+    
+
+            console.log(taskArray)
+
+
+        })
+        
+
+        if (e.priority == 'High Priority'){
+            task.style.borderColor = 'red'
+        } else if (e.priority == 'Low Priority'){
+            task.style.borderColor = 'green'
+        } else {
+            task.style.borderColor = 'black'
+        }
+            
+            
+            
+
+
 
         let taskDelete = document.createElement('button')
         taskDelete.classList.add('taskDelete');
@@ -166,6 +234,7 @@ function displayTasks (i){
     })
 
 }
+
 
 
 
@@ -256,6 +325,126 @@ function createTask (i){
         
 
 }
+
+document.querySelector('.allTasks').addEventListener('click', ()=>{
+    document.querySelector('.contentHeader').textContent = 'All'
+    const taskContainer = document.querySelector('.taskContainer');
+    taskContainer.innerHTML = '';
+    myProjects.forEach((e,i)=>{
+        let taskArray = e.tasks
+        taskArray.forEach((e,i)=>{
+            console.log(e)
+
+            
+
+            
+
+            
+
+            let task = document.createElement('div');
+            task.classList.add('task')
+    
+            
+            
+            
+            taskContainer.appendChild(task)
+    
+            let taskTitle = document.createElement('input');
+            taskTitle.classList.add('taskTitle');
+            taskTitle.value = e.title;
+            task.appendChild(taskTitle);
+    
+            let taskDescription = document.createElement('input');
+            taskDescription.classList.add('taskDescription')
+            taskDescription.value = e.description;
+            task.appendChild(taskDescription);
+    
+            let taskPriority = document.createElement('select');
+            taskPriority.classList.add('taskPriority')
+            taskPriority.textContent = e.priority;
+            task.appendChild(taskPriority);
+    
+            let lowPriority = document.createElement('option');
+            lowPriority.classList.add('lowPriority');
+            lowPriority.value = 'Low Priority';
+            lowPriority.textContent = 'Low Priority'
+            taskPriority.appendChild(lowPriority);
+    
+            
+    
+            let highPriority = document.createElement('option');
+            highPriority.classList.add('highPriority');
+            highPriority.value = 'High Priority';
+            highPriority.textContent = 'High Priority'
+            taskPriority.appendChild(highPriority);
+    
+            
+    
+            let taskDueDate = document.createElement('input')
+            taskDueDate.classList.add('showDueDate');
+            taskDueDate.type = 'Date';
+            taskDueDate.value = e.dueDate;
+            task.appendChild(taskDueDate);
+    
+            let taskEditAndSubmit = document.createElement('button');
+            taskEditAndSubmit.classList.add('taskEditAndSubmit');
+            taskEditAndSubmit.textContent = 'Submit';
+            task.appendChild(taskEditAndSubmit);
+    
+            taskEditAndSubmit.addEventListener('click', ()=>{
+                e.title = taskTitle.value;
+                e.description = taskDescription.value;
+                e.priority = taskPriority.value;
+                e.dueDate = taskDueDate.value;
+    
+                if (e.priority == 'High Priority'){
+                    task.style.borderColor = 'red'
+                } else if (e.priority == 'Low Priority'){
+                    task.style.borderColor = 'green'
+                } else {
+                    task.style.borderColor = 'black'
+                }
+        
+    
+                console.log(taskArray)
+    
+    
+            })
+            
+    
+            if (e.priority == 'High Priority'){
+                task.style.borderColor = 'red'
+            } else if (e.priority == 'Low Priority'){
+                task.style.borderColor = 'green'
+            } else {
+                task.style.borderColor = 'black'
+            }
+                
+                
+                
+    
+    
+    
+            let taskDelete = document.createElement('button')
+            taskDelete.classList.add('taskDelete');
+            taskDelete.textContent = 'Delete';
+            task.appendChild(taskDelete);
+            taskDelete.addEventListener('click', ()=>{
+                
+                taskArray.splice(i , 1);
+                task.remove();
+                console.log(i)
+                console.log(e);
+                console.log(taskArray)
+                
+                
+    
+            })
+
+            
+        })
+    })
+})
 
     
 

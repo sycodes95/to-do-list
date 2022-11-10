@@ -56,6 +56,11 @@ body{
     
 }
 
+.allTasks:hover{
+    cursor: pointer;
+
+}
+
 .projectContainer{
     display: grid;
     grid-auto-rows: 30px;
@@ -95,7 +100,7 @@ body{
 }
 
 .task {
-    border: solid 1px black;
+    border: solid 2px black;
     display: grid;
     grid-template-columns: 5fr 1fr;
     grid-template-rows: repeat(2, 20px);
@@ -110,6 +115,8 @@ body{
     font-size: 16px;
 }
 
+
+
 .taskDescription{
     background-color: coral;
     grid-column: 1 / 2;
@@ -122,6 +129,11 @@ body{
     grid-column: 2/3;
     grid-row: 1/3;
 }
+
+
+
+
+
 
 
 
