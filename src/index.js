@@ -26,6 +26,8 @@ class Task {
     addProject.textContent = 'Default'
     projectContainer.appendChild(addProject);
 
+    
+
     const contentHeader = document.querySelector('.contentHeader');
     contentHeader.textContent = addProject.textContent;
 
@@ -46,9 +48,12 @@ class Task {
 (function projectButton (){
     const projectFormContainer = document.querySelector('.projectFormContainer');
     const projectButton = document.querySelector('.projectButton');
+    const projectName = document.getElementById('projectName');
     
     projectButton.addEventListener('click', ()=>{
+        projectName.value = '';
         projectFormContainer.style.visibility = 'visible';
+        
     });
 })();
 
@@ -58,6 +63,19 @@ class Task {
     submit.addEventListener('click', ()=>{
         const projectName = document.getElementById('projectName');
         const addProject = document.createElement('div');
+        addProject.classList.add('project');
+
+        
+        
+
+
+        
+
+        
+        
+
+        
+
         projectContainer.appendChild(addProject);
 
         addProject.textContent = projectName.value;
@@ -74,6 +92,15 @@ class Task {
         projectFormContainer.style.visibility = 'hidden';
 
 
+
+    });
+})();
+
+(function projectCancel (){
+    const cancelProject = document.getElementById('cancelProject');
+    const projectFormContainer = document.querySelector('.projectFormContainer')
+    cancelProject.addEventListener('click', ()=>{
+        projectFormContainer.style.visibility = 'hidden';
 
     });
 })();
@@ -104,6 +131,39 @@ function projectClick (){
     let contentHeader = document.querySelector('.contentHeader');
     const taskContainer = document.querySelector('.taskContainer')
     Array.from(projectContainer.children).forEach((project, i) =>{
+
+        
+        if (project.children.length == 0) {
+            let deleteProject = document.createElement('button')
+            deleteProject.setAttribute('id', 'deleteProject')
+            deleteProject.textContent = 'X';
+            project.appendChild(deleteProject)
+            deleteProject.addEventListener('click', ()=>{
+                
+                myProjects.splice(i,1);
+                project.remove();
+
+                console.log(myProjects);
+    
+            })
+
+            
+
+            
+
+            
+
+        }
+        
+
+        
+
+        
+        
+
+        
+
+        
         
         
         project.addEventListener('click',()=>{
@@ -193,6 +253,9 @@ function displayTasks (i){
         taskTitle.addEventListener('keypress', (k)=>{
             if (k.key == 'Enter'){
                 e.title = taskTitle.value;
+                e.description = taskDescription.value;
+                e.priority = taskPriority.value;
+                e.dueDate = taskDueDate.value;
                 
                 console.log(myProjects);
                 taskTitle.blur();
@@ -203,7 +266,10 @@ function displayTasks (i){
         taskDescription.addEventListener('keypress', (k)=>{
             if (k.key == 'Enter'){
                 
+                e.title = taskTitle.value;
                 e.description = taskDescription.value;
+                e.priority = taskPriority.value;
+                e.dueDate = taskDueDate.value;
                 
                 console.log(myProjects);
                 taskDescription.blur();
@@ -372,6 +438,8 @@ function createTask (i){
 document.querySelector('.allTasks').addEventListener('click', ()=>{
     const taskButton = document.getElementById('taskButton')
     taskButton.style.visibility = 'hidden';
+    const taskFormContainer = document.querySelector('.taskFormContainer');
+    taskFormContainer.style.visibility = 'hidden';
     document.querySelector('.contentHeader').textContent = 'All'
     const taskContainer = document.querySelector('.taskContainer');
     taskContainer.innerHTML = '';
@@ -435,6 +503,34 @@ document.querySelector('.allTasks').addEventListener('click', ()=>{
             taskEditAndSubmit.classList.add('taskEditAndSubmit');
             taskEditAndSubmit.textContent = 'Submit';
             task.appendChild(taskEditAndSubmit);
+
+            taskTitle.addEventListener('keypress', (k)=>{
+                if (k.key == 'Enter'){
+                    e.title = taskTitle.value;
+                    e.description = taskDescription.value;
+                    e.priority = taskPriority.value;
+                    e.dueDate = taskDueDate.value;
+                    
+                    console.log(myProjects);
+                    taskTitle.blur();
+    
+                };
+            });
+    
+            taskDescription.addEventListener('keypress', (k)=>{
+                if (k.key == 'Enter'){
+                    
+                    e.title = taskTitle.value;
+                    e.description = taskDescription.value;
+                    e.priority = taskPriority.value;
+                    e.dueDate = taskDueDate.value;
+                    
+                    console.log(myProjects);
+                    taskDescription.blur();
+    
+                };
+    
+            })
     
             taskEditAndSubmit.addEventListener('click', ()=>{
                 e.title = taskTitle.value;
