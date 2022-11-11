@@ -86,13 +86,14 @@ body{
     background-color: red;
     height: 20px;
 
-    display: flex;
+    display: grid;
+    grid-template-columns: 100px 40px;
     justify-content: space-between;
 
 }
 
 .projectContainer > div:hover {
-    cursor: pointer;
+    
 
 }
 
@@ -103,11 +104,28 @@ body{
     border-radius: 30px;
     
     height: 20px;
+    width: 40px;
 }
 
 .projectFormContainer{
     visibility: hidden;
 }
+
+
+
+.projectTitle {
+    border: solid 1px black;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 50px;
+    align-self: center;
+}
+
+.projectTitle:hover{
+    cursor: pointer;
+}
+
+
 
 #deleteProject {
     height:20px;

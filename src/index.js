@@ -60,39 +60,31 @@ class Task {
 (function projectSubmit (){
     const submit = document.getElementById('submitProject');
     const projectContainer = document.querySelector('.projectContainer');
+    
     submit.addEventListener('click', ()=>{
+        projectContainer.innerHTML = '';
+        projectContainer.textContent = 'Projects'
         const projectName = document.getElementById('projectName');
-        const addProject = document.createElement('div');
-        addProject.classList.add('project');
-
         
-        
-
 
         
 
         
         
-
-        
-
-        projectContainer.appendChild(addProject);
-
-        addProject.textContent = projectName.value;
-        
-        let title = addProject.textContent;
+        let title = projectName.value;
 
         let projectObj = new Project(title)
         myProjects.push(projectObj)
         console.log(myProjects)
 
+        
+
         projectClick()
 
         const projectFormContainer = document.querySelector('.projectFormContainer');
         projectFormContainer.style.visibility = 'hidden';
-
-
-
+        
+        
     });
 })();
 
@@ -130,63 +122,65 @@ function projectClick (){
     const projectContainer = document.querySelector('.projectContainer');
     let contentHeader = document.querySelector('.contentHeader');
     const taskContainer = document.querySelector('.taskContainer')
-    Array.from(projectContainer.children).forEach((project, i) =>{
 
+    projectContainer.innerHTML = ''
+    projectContainer.textContent = 'Projects'
+
+    myProjects.forEach((proj, i) =>{
+        const project = document.createElement('div');
+        project.classList.add('project')
         
-        if (project.children.length == 0) {
-            let deleteProject = document.createElement('button')
-            deleteProject.setAttribute('id', 'deleteProject')
-            deleteProject.textContent = 'X';
-            project.appendChild(deleteProject)
-            deleteProject.addEventListener('click', ()=>{
-                
-                myProjects.splice(i,1);
-                project.remove();
+        projectContainer.appendChild(project);
 
-                console.log(myProjects);
-    
-            })
+        const projectTitle = document.createElement('div');
+        projectTitle.classList.add('projectTitle')
+        projectTitle.textContent = proj.title;
+        project.appendChild(projectTitle);
+
+
+        let deleteProject = document.createElement('button')
+        deleteProject.setAttribute('id', 'deleteProject')
+        deleteProject.textContent = 'X';
+        project.appendChild(deleteProject)
+        deleteProject.addEventListener('click', ()=>{
 
             
+            
+            myProjects.splice(i,1);
+            project.remove();
+            projectClick()
 
+            if (contentHeader.textContent == proj.title){
+                allTasks()
+
+            }
+            
+            
+            
+            
             
 
-            
+            console.log(myProjects);
 
-        }
-        
+        })
 
-        
-
-        
-        
-
-        
-
-        
-        
-        
-        project.addEventListener('click',()=>{
+        projectTitle.addEventListener('click',()=>{
             taskContainer.innerHTML = '';
-            contentHeader.textContent = `${myProjects[i].title}`;
+            contentHeader.textContent = proj.title;
             displayTasks(i)
             createTask(i)
             taskButton()
-            
-
-            
+        
             console.log(myProjects)
-            console.log(i)
-            
-            
+            console.log(i)  
         })
 
-        
-        
-        
-        
-        
+
+
     })
+    
+    
+    
 }
 
 function displayTasks (i){
@@ -435,7 +429,7 @@ function createTask (i){
 
 }
 
-document.querySelector('.allTasks').addEventListener('click', ()=>{
+function allTasks (){
     const taskButton = document.getElementById('taskButton')
     taskButton.style.visibility = 'hidden';
     const taskFormContainer = document.querySelector('.taskFormContainer');
@@ -589,6 +583,11 @@ document.querySelector('.allTasks').addEventListener('click', ()=>{
             
         })
     })
+
+}
+
+document.querySelector('.allTasks').addEventListener('click', ()=>{
+    allTasks()
 })
 
     
