@@ -21,9 +21,19 @@ class Task {
 
 (function createDefaultProject (){ 
     const projectContainer = document.querySelector('.projectContainer');
+    
     const addProject = document.createElement('div');
     addProject.textContent = 'Default'
     projectContainer.appendChild(addProject);
+
+    const contentHeader = document.querySelector('.contentHeader');
+    contentHeader.textContent = addProject.textContent;
+
+    const taskButton = document.getElementById('taskButton');
+    taskButton.style.visibility = 'visibile';
+
+
+
     let title = addProject.textContent;
     let defaultProject = new Project(title);
     myProjects.push(defaultProject);
@@ -141,6 +151,8 @@ function displayTasks (i){
         taskTitle.value = e.title;
         task.appendChild(taskTitle);
 
+        
+
         let taskDescription = document.createElement('input');
         taskDescription.classList.add('taskDescription')
         taskDescription.value = e.description;
@@ -177,6 +189,28 @@ function displayTasks (i){
         taskEditAndSubmit.classList.add('taskEditAndSubmit');
         taskEditAndSubmit.textContent = 'Submit';
         task.appendChild(taskEditAndSubmit);
+
+        taskTitle.addEventListener('keypress', (k)=>{
+            if (k.key == 'Enter'){
+                e.title = taskTitle.value;
+                
+                console.log(myProjects);
+                taskTitle.blur();
+
+            };
+        });
+
+        taskDescription.addEventListener('keypress', (k)=>{
+            if (k.key == 'Enter'){
+                
+                e.description = taskDescription.value;
+                
+                console.log(myProjects);
+                taskDescription.blur();
+
+            };
+
+        })
 
         taskEditAndSubmit.addEventListener('click', ()=>{
             e.title = taskTitle.value;
@@ -326,11 +360,18 @@ function createTask (i){
 
     })
 
+    cancelTask.addEventListener('click', ()=>{
+        taskFormContainer.style.visibility = 'hidden';
+
+    })
+
         
 
 }
 
 document.querySelector('.allTasks').addEventListener('click', ()=>{
+    const taskButton = document.getElementById('taskButton')
+    taskButton.style.visibility = 'hidden';
     document.querySelector('.contentHeader').textContent = 'All'
     const taskContainer = document.querySelector('.taskContainer');
     taskContainer.innerHTML = '';
