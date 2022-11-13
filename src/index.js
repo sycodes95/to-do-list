@@ -1,6 +1,15 @@
 import allTasks from './allTasks'
+import createDefaultProject from './createDefault'
 
-let myProjects = [];
+let myProjects;
+if (localStorage !== null){
+    myProjects = JSON.parse(localStorage.getItem('myProjects'))
+    projectClick()
+} else {
+    myProjects = [];
+    createDefaultProject();
+
+}
 
 
 class Project {
@@ -20,8 +29,9 @@ class Task {
         this.dueDate = dueDate;
     }
 }
+/*
+function createDefaultProject (){ 
 
-(function createDefaultProject (){ 
     const projectContainer = document.querySelector('.projectContainer');
     
     const addProject = document.createElement('div');
@@ -45,7 +55,9 @@ class Task {
     projectClick()
 
     console.log(myProjects)
-})();
+};
+*/
+
 
 (function projectButton (){
     const projectFormContainer = document.querySelector('.projectFormContainer');
@@ -85,6 +97,8 @@ class Task {
 
         const projectFormContainer = document.querySelector('.projectFormContainer');
         projectFormContainer.style.visibility = 'hidden';
+
+        localStorage.setItem('myProjects', JSON.stringify(myProjects));
         
         
     });
@@ -156,6 +170,7 @@ function projectClick (){
                 allTasks(myProjects)
 
             }
+            localStorage.setItem('myProjects', JSON.stringify(myProjects));
             
             
             
@@ -172,6 +187,8 @@ function projectClick (){
             displayTasks(i)
             createTask(i)
             taskButton()
+
+
         
             console.log(myProjects)
             console.log(i)  
@@ -216,8 +233,6 @@ function displayTasks (i){
 
         let taskPriority = document.createElement('select');
         taskPriority.classList.add('taskPriority')
-        
-        
         task.appendChild(taskPriority);
 
         taskPriority.addEventListener('change', (evt)=>{
@@ -228,6 +243,7 @@ function displayTasks (i){
                 task.style.borderColor = 'black';
                 console.log(myProjects);
                 noPriority.blur();
+                localStorage.setItem('myProjects', JSON.stringify(myProjects));
         
                 
             } else if (evt.currentTarget.value == 'Low Priority'){
@@ -236,6 +252,7 @@ function displayTasks (i){
                 task.style.borderColor = 'green';
                 console.log(myProjects);
                 lowPriority.blur();
+                localStorage.setItem('myProjects', JSON.stringify(myProjects));
 
 
             } else if (evt.currentTarget.value == 'High Priority'){
@@ -244,6 +261,7 @@ function displayTasks (i){
                 task.style.borderColor = 'red';
                 console.log(myProjects);
                 highPriority.blur();
+                localStorage.setItem('myProjects', JSON.stringify(myProjects));
             }
 
         })
@@ -283,6 +301,7 @@ function displayTasks (i){
             date.currentTarget.value = taskDueDate.value;
             e.dueDate = date.currentTarget.value;
             console.log(e)
+            localStorage.setItem('myProjects', JSON.stringify(myProjects));
 
         })
 
@@ -299,6 +318,7 @@ function displayTasks (i){
                 
                 console.log(myProjects);
                 taskTitle.blur();
+                localStorage.setItem('myProjects', JSON.stringify(myProjects));
 
             };
         });
@@ -313,6 +333,7 @@ function displayTasks (i){
                 
                 console.log(myProjects);
                 taskDescription.blur();
+                localStorage.setItem('myProjects', JSON.stringify(myProjects));
 
             };
 
@@ -347,6 +368,7 @@ function displayTasks (i){
             console.log(i)
             console.log(e);
             console.log(taskArray)
+            localStorage.setItem('myProjects', JSON.stringify(myProjects));
             
             
 
@@ -437,6 +459,8 @@ function createTask (i){
 
         let taskObj = new Task (title, description, priority, dueDate)
         myProjects.at(i).tasks.push(taskObj);
+        localStorage.setItem('myProjects', JSON.stringify(myProjects));
+        console.log(localStorage)
 
         
         
@@ -469,6 +493,11 @@ function createTask (i){
 
 document.querySelector('.allTasks').addEventListener('click', ()=>{
     allTasks(myProjects)
+})
+
+window.addEventListener('DOMContentLoaded', ()=> {
+    allTasks(myProjects)
+
 })
 
     

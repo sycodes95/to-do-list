@@ -37,8 +37,44 @@ function allTasks (myProjects){
     
             let taskPriority = document.createElement('select');
             taskPriority.classList.add('taskPriority')
-            taskPriority.textContent = e.priority;
             task.appendChild(taskPriority);
+
+            taskPriority.addEventListener('change', (evt)=>{
+                if (evt.currentTarget.value == 'No Priority'){
+                    
+                    evt.currentTarget.value = noPriority.value;
+                    e.priority = evt.currentTarget.value;
+                    task.style.borderColor = 'black';
+                    console.log(myProjects);
+                    noPriority.blur();
+                    localStorage.setItem('myProjects', JSON.stringify(myProjects));
+            
+                    
+                } else if (evt.currentTarget.value == 'Low Priority'){
+                    evt.currentTarget.value = lowPriority.value;
+                    e.priority = evt.currentTarget.value;
+                    task.style.borderColor = 'green';
+                    console.log(myProjects);
+                    lowPriority.blur();
+                    localStorage.setItem('myProjects', JSON.stringify(myProjects));
+    
+    
+                } else if (evt.currentTarget.value == 'High Priority'){
+                    evt.currentTarget.value = highPriority.value;
+                    e.priority = evt.currentTarget.value;
+                    task.style.borderColor = 'red';
+                    console.log(myProjects);
+                    highPriority.blur();
+                    localStorage.setItem('myProjects', JSON.stringify(myProjects));
+                }
+    
+            })
+
+            let noPriority = document.createElement('option');
+            noPriority.classList.add('noPriority');
+            noPriority.value = 'No Priority';
+            noPriority.textContent = 'No Priority';
+            taskPriority.appendChild(noPriority);
     
             let lowPriority = document.createElement('option');
             lowPriority.classList.add('lowPriority');
@@ -61,11 +97,16 @@ function allTasks (myProjects){
             taskDueDate.type = 'Date';
             taskDueDate.value = e.dueDate;
             task.appendChild(taskDueDate);
+
+            taskDueDate.addEventListener('change', (date)=>{
+                date.currentTarget.value = taskDueDate.value;
+                e.dueDate = date.currentTarget.value;
+                console.log(e)
+                localStorage.setItem('myProjects', JSON.stringify(myProjects));
     
-            let taskEditAndSubmit = document.createElement('button');
-            taskEditAndSubmit.classList.add('taskEditAndSubmit');
-            taskEditAndSubmit.textContent = 'Submit';
-            task.appendChild(taskEditAndSubmit);
+            })
+    
+            
 
             taskTitle.addEventListener('keypress', (k)=>{
                 if (k.key == 'Enter'){
@@ -76,6 +117,7 @@ function allTasks (myProjects){
                     
                     console.log(myProjects);
                     taskTitle.blur();
+                    localStorage.setItem('myProjects', JSON.stringify(myProjects));
     
                 };
             });
@@ -90,32 +132,13 @@ function allTasks (myProjects){
                     
                     console.log(myProjects);
                     taskDescription.blur();
+                    localStorage.setItem('myProjects', JSON.stringify(myProjects));
     
                 };
     
             })
     
-            taskEditAndSubmit.addEventListener('click', ()=>{
-                e.title = taskTitle.value;
-                e.description = taskDescription.value;
-                e.priority = taskPriority.value;
-                e.dueDate = taskDueDate.value;
-    
-                if (e.priority == 'High Priority'){
-                    task.style.borderColor = 'red'
-                    highPriority.selected = true;
-                } else if (e.priority == 'Low Priority'){
-                    task.style.borderColor = 'green'
-                    lowPriority.selected = true;
-                } else {
-                    task.style.borderColor = 'black'
-                }
-        
-    
-                console.log(taskArray)
-    
-    
-            })
+            
             
     
             if (e.priority == 'High Priority'){
