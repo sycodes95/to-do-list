@@ -1,15 +1,11 @@
 import allTasks from './allTasks'
-import createDefaultProject from './createDefault'
+
+
+console.log(localStorage)
 
 let myProjects;
-if (localStorage !== null){
-    myProjects = JSON.parse(localStorage.getItem('myProjects'))
-    projectClick()
-} else {
-    myProjects = [];
-    createDefaultProject();
 
-}
+
 
 
 class Project {
@@ -29,7 +25,23 @@ class Task {
         this.dueDate = dueDate;
     }
 }
-/*
+
+if (localStorage.length !== 0){
+    myProjects = JSON.parse(localStorage.getItem('myProjects'));
+    console.log(myProjects)
+    projectClick()
+    
+} else {
+    myProjects = [];
+    console.log(myProjects)
+    createDefaultProject();
+    
+
+}
+
+
+
+
 function createDefaultProject (){ 
 
     const projectContainer = document.querySelector('.projectContainer');
@@ -56,7 +68,7 @@ function createDefaultProject (){
 
     console.log(myProjects)
 };
-*/
+
 
 
 (function projectButton (){
@@ -499,6 +511,59 @@ window.addEventListener('DOMContentLoaded', ()=> {
     allTasks(myProjects)
 
 })
+
+    
+
+        
+
+        
+
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+        
+        
+
+
+
+            
+
+
+            
+
+            
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
 
     
 
